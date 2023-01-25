@@ -1,7 +1,6 @@
 import random
 from itertools import permutations
 import numpy as np
-from numpy import random
 
 
 # Euclidean distance
