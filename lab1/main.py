@@ -9,6 +9,7 @@ def euclidean_distance(p1, p2):
     return np.sqrt(np.sum(np.square(np.array(p1) - np.array(p2))))
 
 
+# Cities initialization
 def cities_init():
     random.seed(1)
     number_of_cities = 0
@@ -21,6 +22,7 @@ def cities_init():
     return result
 
 
+# Method 1
 def brute_force_method(points):
     n = len(points)
     min_dist = float('inf')
@@ -37,6 +39,7 @@ def brute_force_method(points):
     print("\nBrute force method path: " + str(best_path) + "\nBrute force method distance: " + str(round(min_dist, 2)))
 
 
+# Method 2
 def n_n_method(points):
     path = [points[0]]  # first city
     remaining_points = points[1:]
@@ -52,6 +55,7 @@ def n_n_method(points):
     print("\nN-N method path: " + str(path) + "\nN-N method distance: " + str(round(total_distance, 2)))
 
 
+# Method 3 (instead of Dijkstra's algorithm )
 def randomized_hill_climbing(cities):
     n = len(cities)
     best_path = random.sample(range(n), n)
