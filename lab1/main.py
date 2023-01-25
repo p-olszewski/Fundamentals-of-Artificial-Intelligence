@@ -35,7 +35,9 @@ def brute_force_method(points):
         if dist < min_dist:
             min_dist = dist
             best_path = path
-    print("\nBrute force method path: " + str(best_path) + "\nBrute force method distance: " + str(round(min_dist, 2)))
+    print("\nBrute force method path: "
+          + str(best_path) + "\nBrute force method distance: "
+          + str(round(min_dist, 2)))
 
 
 # Method 2
@@ -48,8 +50,8 @@ def n_n_method(points):
         path.append(nearest)
         remaining_points.remove(nearest)
 
-    total_distance = sum(euclidean_distance(path[i], path[i + 1]) for i in range(len(path) - 1)) + euclidean_distance(
-        path[-1], path[0])
+    total_distance = sum(euclidean_distance(path[i], path[i + 1])
+                         for i in range(len(path) - 1)) + euclidean_distance(path[-1], path[0])
 
     print("\nN-N method path: " + str(path) + "\nN-N method distance: " + str(round(total_distance, 2)))
 
