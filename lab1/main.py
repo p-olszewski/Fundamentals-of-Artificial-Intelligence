@@ -1,5 +1,4 @@
-import math
-from collections import defaultdict
+import random
 from itertools import permutations
 import numpy as np
 from numpy import random
@@ -20,42 +19,6 @@ def cities_init():
             print("Invalid input. Please enter a number.")
     result = [(random.randint(0, 100), random.randint(0, 100)) for _ in range(number_of_cities)]
     return result
-
-
-def held_karp(points):
-    n = len(points)
-    # tworzenie macierzy odległości między punktami
-    dist = [[math.inf for _ in range(n)] for _ in range(n)]
-    for i in range(n):
-        for j in range(i, n):
-            dist[i][j] = dist[j][i] = math.sqrt((points[i][0] - points[j][0]) ** 2 + (points[i][1] - points[j][1]) ** 2)
-    # tworzenie tablicy dynamicznej
-    dp = defaultdict(lambda: defaultdict(lambda: math.inf))
-    for i in range(n):
-        dp[1 << i][i] = 0
-    for mask in range(1, 1 << n):
-        for i in range(n):
-            if mask & (1 << i) == 0:
-                continue
-            for j in range(n):
-                if i != j and mask & (1 << j) != 0:
-                    dp[mask][i] = min(dp[mask][i], dp[mask ^ (1 << i)][j] + dist[j][i])
-    # znajdowanie najkrótszej ścieżki
-    path = []
-    mask = (1 << n) - 1
-    i = 0
-    for _ in range(n):
-        path.append(i)
-        min_dist = math.inf
-        next_i = 0
-        for j in range(n):
-            if i != j and mask & (1 << j) != 0 and dp[mask][i] + dist[i][j] - dp[mask ^ (1 << j)][j] < min_dist:
-                min_dist = dp[mask][i] + dist[i][j] - dp[mask ^ (1 << j)][j]
-                next_i = j
-        mask = mask ^ (1 << i)
-        i = next_i
-    path.append(0)
-    print("\nHeld-Karp method path: " + str(path) + "\nHeld-Karp method distance: " + str(round(min_dist, 2)))
 
 
 def brute_force_method(points):
@@ -89,9 +52,31 @@ def n_n_method(points):
     print("\nN-N method path: " + str(path) + "\nN-N method distance: " + str(round(total_distance, 2)))
 
 
+def randomized_hill_climbing(cities):
+    n = len(cities)
+    best_path = random.sample(range(n), n)
+    best_path_length = sum(euclidean_distance(cities[best_path[i]], cities[best_path[i + 1]]) for i in
+                           range(len(best_path) - 1)) + euclidean_distance(cities[best_path[-1]], cities[best_path[0]])
+
+    while True:
+        neighbor_path = best_path.copy()
+        l1, l2 = random.sample(range(n), 2)
+        neighbor_path[l1], neighbor_path[l2] = neighbor_path[l2], neighbor_path[l1]
+        neighbor_path_length = sum(euclidean_distance(cities[neighbor_path[i]], cities[neighbor_path[i + 1]]) for i in
+                                   range(len(neighbor_path) - 1)) + euclidean_distance(cities[neighbor_path[-1]],
+                                                                                       cities[neighbor_path[0]])
+        if neighbor_path_length < best_path_length:
+            best_path = neighbor_path
+            best_path_length = neighbor_path_length
+        else:
+            print("\nRandomized Hill Climbing method path: " + str([cities[i] for i in best_path]))
+            print("Randomized Hill Climbing method distance: " + str(round(best_path_length, 2)))
+            return
+
+
 if __name__ == '__main__':
     citiesArray = cities_init()
     print("\nCities:\n" + str(citiesArray))
     n_n_method(citiesArray)
     brute_force_method(citiesArray)
-    held_karp(citiesArray)
+    randomized_hill_climbing(citiesArray)
