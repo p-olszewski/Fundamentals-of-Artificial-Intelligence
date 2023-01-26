@@ -94,7 +94,7 @@ def rhc_method(cities):
 if __name__ == '__main__':
     citiesArray = cities_init()
     print("\nCities:\n" + str(citiesArray))
-    n_n_method(citiesArray)
     brute_force_method(citiesArray)
+    n_n_method(citiesArray)
     rhc_method(citiesArray)
 
