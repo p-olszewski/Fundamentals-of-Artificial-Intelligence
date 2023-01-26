@@ -40,6 +40,12 @@ def train(n):
 
 
 if __name__ == '__main__':
+    legs = 4
+    aquatic = 0.1
+    flying = 0
+    feather = 0
+    oviparous = 0
+
+    cat = np.array([[legs, aquatic, flying, feather, oviparous]])
     weights = train(10)
-    cat = np.array([[4, 0.1, 0, 0, 0]])
     print(f"Predict for [4, 0.1, 0, 0, 0]: {fa(weights, cat)}")
