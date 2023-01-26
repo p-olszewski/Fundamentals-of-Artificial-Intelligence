@@ -3,6 +3,7 @@ import numpy as np
 
 class Perceptron:
     def __init__(self):
+        # random weights and bias
         self.weights = np.random.rand(2)
         self.bias = np.random.rand(1)
 
@@ -10,15 +11,17 @@ class Perceptron:
         # train 100 times
         for i in range(100):
             for input_value, output_value in zip(input_array, output_array):
-                prediction_value = self.predict(input_value)
-                difference = output_value - prediction_value
+                prediction_value = self.predict(input_value)  # predicted output for the current input
+                difference = output_value - prediction_value  # difference between the predicted and actual output
+                # skip to next input if the predicted output is already correct
                 if difference == 0:
                     continue
-                self.bias += difference
-                delta_weight = difference * input_value
-                self.weights += delta_weight
+                self.bias += difference  # update bias
+                delta_weight = difference * input_value  # calculate delta weights
+                self.weights += delta_weight  # update weights
 
     def predict(self, input_array):
+        # calculate the weighted sum of inputs and bias
         weighted_sum = np.dot(input_array, self.weights) + self.bias
         if weighted_sum > 0:
             return 1
@@ -43,4 +46,3 @@ if __name__ == '__main__':
     test_value = np.array([1, 0])
     result_value = perceptron.predict(test_value)
     print("\nTest2\nExpected value: 1\nActual value: " + str(result_value))
-
