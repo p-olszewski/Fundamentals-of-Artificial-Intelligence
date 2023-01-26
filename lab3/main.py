@@ -6,6 +6,11 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-5 * x))
 
 
+def fa(weights, inputs):
+    return sigmoid(np.dot(inputs, weights))
+
+
 
 if __name__ == '__main__':
     sigmoid()
+    fa()
