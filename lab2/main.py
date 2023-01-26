@@ -38,12 +38,12 @@ if __name__ == '__main__':
     expected_outputs = np.array([0, 0, 1, 1])
     perceptron.train(inputs, expected_outputs)
 
-    # test 1
+    # test 1 - expected 0
     test_value = np.array([0, 0])
     result_value = perceptron.predict(test_value)
     print("\nTest1\nExpected value: 0\nActual value: " + str(result_value))
 
-    # test 2
+    # test 2 - expected 1
     test_value = np.array([1, 0])
     result_value = perceptron.predict(test_value)
     print("\nTest2\nExpected value: 1\nActual value: " + str(result_value))
