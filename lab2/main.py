@@ -16,9 +16,10 @@ class Perceptron:
                 # skip to next input if the predicted output is already correct
                 if difference == 0:
                     continue
-                self.bias += difference  # update bias
-                delta_weight = difference * input_value  # calculate delta weights
-                self.weights += delta_weight  # update weights
+                # update bias and weights
+                self.bias += difference
+                delta_weight = difference * input_value
+                self.weights += delta_weight
 
     def predict(self, input_array):
         # calculate the weighted sum of inputs and bias
