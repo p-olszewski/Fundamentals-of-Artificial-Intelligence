@@ -57,22 +57,29 @@ def n_n_method(points):
 
 
 # Method 3 (instead of Dijkstra's algorithm )
-def randomized_hill_climbing(cities):
+def rhc_method(cities):
     n = len(cities)
+    # generate initial random path
     best_path = random.sample(range(n), n)
-    best_path_length = sum(euclidean_distance(cities[best_path[i]], cities[best_path[i + 1]]) for i in
-                           range(len(best_path) - 1)) + euclidean_distance(cities[best_path[-1]], cities[best_path[0]])
+    # calculate the length of the initial path
+    best_path_length = sum(euclidean_distance(cities[best_path[i]], cities[best_path[i + 1]])
+                           for i in range(len(best_path) - 1)) + euclidean_distance(cities[best_path[-1]],
+                                                                                    cities[best_path[0]])
 
     while True:
-        neighbor_path = best_path.copy()
-        l1, l2 = random.sample(range(n), 2)
-        neighbor_path[l1], neighbor_path[l2] = neighbor_path[l2], neighbor_path[l1]
-        neighbor_path_length = sum(euclidean_distance(cities[neighbor_path[i]], cities[neighbor_path[i + 1]]) for i in
-                                   range(len(neighbor_path) - 1)) + euclidean_distance(cities[neighbor_path[-1]],
-                                                                                       cities[neighbor_path[0]])
-        if neighbor_path_length < best_path_length:
-            best_path = neighbor_path
-            best_path_length = neighbor_path_length
+        neighbour_path = best_path.copy()
+        l1, l2 = random.sample(range(n), 2)  # select two random indices to swap
+        neighbour_path[l1], neighbour_path[l2] = neighbour_path[l2], neighbour_path[l1]  # swap the indices in the copy
+        # calculate the length of the new path
+        neighbour_path_length = sum(euclidean_distance(cities[neighbour_path[i]], cities[neighbour_path[i + 1]])
+                                    for i in range(len(neighbour_path) - 1)) + euclidean_distance(
+            cities[neighbour_path[-1]],
+            cities[neighbour_path[0]])
+
+        if neighbour_path_length < best_path_length:
+            # update the current best path and length
+            best_path = neighbour_path
+            best_path_length = neighbour_path_length
         else:
             print("\nRandomized Hill Climbing method path: " + str([cities[i] for i in best_path]))
             print("Randomized Hill Climbing method distance: " + str(round(best_path_length, 2)))
@@ -84,4 +91,5 @@ if __name__ == '__main__':
     print("\nCities:\n" + str(citiesArray))
     n_n_method(citiesArray)
     brute_force_method(citiesArray)
-    randomized_hill_climbing(citiesArray)
+    rhc_method(citiesArray)
+
