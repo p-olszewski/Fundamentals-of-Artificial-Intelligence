@@ -10,7 +10,7 @@ def fa(weights, inputs):
     return sigmoid(np.dot(inputs, weights))
 
 
-def train():
+def train(n):
     p = np.array([[4, 2, -1],
                   [0.01, -1, 3.5],
                   [0.01, 2, 0.01],
@@ -27,7 +27,7 @@ def train():
                   [0.0827, 0.0915, -0.0029],
                   [0.0265, 0.0930, 0.0601]])
 
-    for i in range(10):
+    for i in range(n):
         nr_example = random.randint(0, 2)
         x = p[:, nr_example]
         y = fa(w, x)
@@ -40,5 +40,6 @@ def train():
 
 
 if __name__ == '__main__':
-    sigmoid()
-    fa()
+    weights = train(10)
+    cat = np.array([[4, 0.1, 0, 0, 0]])
+    print(f"Predict for [4, 0.1, 0, 0, 0]: {fa(weights, cat)}")
