@@ -3,6 +3,7 @@ import numpy as np
 
 BETA_VALUE = 5
 LEARNING_RATE = 0.1
+EPOCHS = 100
 
 
 def sigmoid(x):
@@ -14,7 +15,7 @@ def predict(weights, inputs):
 
 
 def train(weights, examples, outputs):
-    for i in range(100):
+    for i in range(EPOCHS):
         example = random.randint(0, 2)
         x = examples[:, example]
         y = predict(weights, x)
