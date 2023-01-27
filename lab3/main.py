@@ -6,24 +6,28 @@ LEARNING_RATE = 0.1
 EPOCHS = 100
 
 
+def percent_display(result):
+    result_percent = 100 * result
+    result_percent = np.around(result_percent, 2)
+    print(np.core.defchararray.add(result_percent.astype(str), '%'))
+
+
 def sigmoid(x):
     return 1 / (1 + np.exp(-BETA_VALUE * x))
 
 
-def predict(weights, inputs):
+def activation(weights, inputs):
     return sigmoid(np.dot(inputs, weights))
 
 
 def train(weights, examples, outputs):
     for i in range(EPOCHS):
-        example = random.randint(0, 2)
-        x = examples[:, example]
-        y = predict(weights, x)
-        d = outputs[:, example] - y
-        x_reshape = x.reshape(5, 1)
-        d_reshape = d.reshape(3, 1)
-        d_w = LEARNING_RATE * np.dot(x_reshape, d_reshape.T)
-        weights += d_w
+        example = random.randint(0, 2)  # rand an example
+        x = examples[:, example]  # from examples
+        y = activation(weights, x)  # example for inputs and calculate outputs
+        d = outputs[:, example] - y  # output errors
+        d_w = LEARNING_RATE * np.dot(x.reshape(5, 1), d.reshape(3, 1).T)  # weight gradient
+        weights += d_w  # update weights
     return weights
 
 
@@ -46,12 +50,22 @@ if __name__ == '__main__':
 
     # array features order:
     # number_of_legs, aquatic, flying, feather, oviparous
-    cat = np.array([[4, 0.1, 0, 0, 0]])
-    # print(f"Predict before for [4, 0.1, 0, 0, 0]: {predict(weights_before_training, cat)}")
-    weights_after_training = train(weights_before_training, examples_matrix, requested_outputs)
-    print(f"Predict for [4, 0.1, 0, 0, 0]: {predict(weights_after_training, cat)}")
+    print("\n[['MAMMAL' 'BIRD' 'FISH']]")
 
-    bird = np.array([[2, 0.1, 0.5, 2, 2]])
-    # print(f"Predict before for [4, 0.1, 0, 0, 0]: {predict(weights_before_training, bird)}")
+    # mammal
+    cat = np.array([[4, 0.1, 0, 0, 0]])
     weights_after_training = train(weights_before_training, examples_matrix, requested_outputs)
-    print(f"Predict for [2, 0.1, 0.5, 2, 2]: {predict(weights_after_training, bird)}")
+    print("\nCat prediction (4, 0.1, 0, 0, 0):")
+    percent_display(activation(weights_after_training, cat))
+
+    # bird
+    eagle = np.array([[2, 0.1, 0.5, 2, 2]])
+    weights_after_training = train(weights_before_training, examples_matrix, requested_outputs)
+    print("\nEagle prediction (2, 0.1, 0.5, 2, 2):")
+    percent_display(activation(weights_after_training, eagle))
+
+    # fish
+    shark = np.array([[0, 2, 0.1, 0.1, 2]])
+    weights_after_training = train(weights_before_training, examples_matrix, requested_outputs)
+    print("\nShark prediction (0, 2, 0.1, 0.1, 2):")
+    percent_display(activation(weights_after_training, shark))
