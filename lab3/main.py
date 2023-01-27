@@ -47,7 +47,5 @@ if __name__ == '__main__':
     # number_of_legs, aquatic, flying, feather, oviparous
     cat = np.array([[4, 0.1, 0, 0, 0]])
     print(f"Predict before for [4, 0.1, 0, 0, 0]: {predict(weights_before_training, cat)}")
-
     weights_after_training = train(weights_before_training, examples_matrix, requested_outputs)
-
     print(f"Predict for [4, 0.1, 0, 0, 0]: {predict(weights_after_training, cat)}")
