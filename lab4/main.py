@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-# Ważne - do ćwiczenia!
-
 import neurolab as nl
 import numpy as np
-import pylab as pl
+import matplotlib.pyplot as plt
 
 # Tworzymy zbiór ucząc
 x = np.linspace(-7, 7, 30)
@@ -35,6 +32,6 @@ out = net.sim(inp)
 x2 = np.linspace(-6.0, 6.0, 150)
 y2 = net.sim(x2.reshape(x2.size, 1)).reshape(x2.size)
 y3 = out.reshape(size)
-pl.plot(x2, y2, '-', x, y, '.', x, y3, 'p')
-pl.legend(['wynik uczenia', 'wartosc rzeczywista'])
-pl.show()
+plt.plot(x2, y2, '-', x, y, '.', x, y3, 'p')
+plt.legend(['wynik uczenia', 'wartosc rzeczywista'])
+plt.show()
