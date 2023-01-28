@@ -12,7 +12,7 @@ def low_amplitude_function():
 
 if __name__ == '__main__':
     x = np.linspace(-7, 7, 30)
-    y1 = 2 * x * np.cos(x)
+    y1 = 2 * x * np.sin(x)
     wsp = np.abs(max(y1) - min(y1))
     y = y1 / wsp
     # y=np.cos(x)
