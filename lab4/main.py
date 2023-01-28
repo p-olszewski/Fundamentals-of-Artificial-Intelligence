@@ -15,7 +15,6 @@ if __name__ == '__main__':
     y1 = 2 * x * np.sin(x)
     wsp = np.abs(max(y1) - min(y1))
     y = y1 / wsp
-    # y=np.cos(x)
     size = len(x)
     print(x)
     inp = x.reshape(size, 1)
@@ -24,12 +23,10 @@ if __name__ == '__main__':
 
     net = nl.net.newff([[-7, 7]], [10, 1])
     net.trainf = nl.net.train.train_gdx
-    error = net.train(inp, tar, epochs=1000, show=100, goal=0.05)
+    error = net.train(inp, tar, epochs=1000, show=100, goal=0.00)
 
-    # Symulujemy
     out = net.sim(inp)
 
-    # Tworzymy wykres z wynikami
     x2 = np.linspace(-6.0, 6.0, 150)
     y2 = net.sim(x2.reshape(x2.size, 1)).reshape(x2.size)
     y3 = out.reshape(size)
