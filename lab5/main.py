@@ -50,5 +50,17 @@ def mutation(population, pm):
     return population
 
 
+def genetic_algorithm(pk, pm):
+    results = []
+    random.seed(0)
+    population = [[random.randint(0, 1) for _ in range(8)] for _ in range(200)]  # 200 or 50
+    for generation in range(200):
+        population = get_parent_population(population)
+        population = crossover(population, pk)
+        population = mutation(population, pm)
+        results.append(np.average(adaptation_function(population)))
+    return results
+
+
 if __name__ == '__main__':
     print("lab5")
