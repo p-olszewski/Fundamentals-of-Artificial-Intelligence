@@ -13,5 +13,18 @@ def get_roulette_wheel(population):
     return np.add.accumulate((adaptation_function(population) / sum(adaptation_function(population))) * 100)
 
 
+def get_parent_population(chromosomes):
+    length = len(chromosomes)
+    parents = []
+    roulette_wheel = get_roulette_wheel(chromosomes)
+    for i in range(length):
+        random_value = random.uniform(0, 100)
+        for j in range(length):
+            if roulette_wheel[j] >= random_value:
+                parents.append(chromosomes[j])
+                break
+    return parents
+
+
 if __name__ == '__main__':
     print("lab5")
