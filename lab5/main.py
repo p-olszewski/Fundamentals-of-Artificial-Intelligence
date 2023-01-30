@@ -18,9 +18,9 @@ def get_parent_population(chromosomes):
     parents = []
     roulette_wheel = get_roulette_wheel(chromosomes)
     for i in range(length):
-        random_value = random.uniform(0, 100)
+        value = random.uniform(0, 100)
         for j in range(length):
-            if roulette_wheel[j] >= random_value:
+            if roulette_wheel[j] >= value:
                 parents.append(chromosomes[j])
                 break
     return parents
