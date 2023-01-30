@@ -38,5 +38,17 @@ def crossover(parents, pk):
     return population
 
 
+def mutation(population, pm):
+    length = len(population)
+    for i in range(length):
+        if random.random() <= pm:
+            mutation_point = random.randint(0, len(population[i]) - 1)
+            if population[i][mutation_point] == 1:
+                population[i][mutation_point] = 0
+            else:
+                population[i][mutation_point] = 1
+    return population
+
+
 if __name__ == '__main__':
     print("lab5")
