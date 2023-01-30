@@ -22,5 +22,21 @@ def get_parent_population(chromosomes):
     return parents
 
 
+def crossover(parents, pk):
+    length = len(parents)
+    population = []
+    for i in range(0, length - 1, 2):
+        first = parents[i]
+        second = parents[i + 1]
+        if random.random() <= pk:
+            cross_point = random.randint(1, len(first) - 1)
+            population.append(first[:cross_point] + second[cross_point:])
+            population.append(second[:cross_point] + first[cross_point:])
+        else:
+            population.append(first)
+            population.append(second)
+    return population
+
+
 if __name__ == '__main__':
     print("lab5")
