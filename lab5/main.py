@@ -9,14 +9,10 @@ def adaptation_function(chromosomes):
     return 0.2 * np.sqrt(np.packbits(chromosomes)) + 2.0 * np.sin(2.0 * np.pi * 0.02 * np.packbits(chromosomes)) + 5.0
 
 
-def get_roulette_wheel(population):
-    return np.add.accumulate((adaptation_function(population) / sum(adaptation_function(population))) * 100)
-
-
 def get_parent_population(chromosomes):
     length = len(chromosomes)
     parents = []
-    roulette_wheel = get_roulette_wheel(chromosomes)
+    roulette_wheel = np.add.accumulate((adaptation_function(chromosomes) / sum(adaptation_function(chromosomes))) * 100)
     for i in range(length):
         value = random.uniform(0, 100)
         for j in range(length):
