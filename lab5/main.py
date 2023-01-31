@@ -9,7 +9,7 @@ def adaptation_function(chromosomes):
     return 0.2 * np.sqrt(np.packbits(chromosomes)) + 2.0 * np.sin(2.0 * np.pi * 0.02 * np.packbits(chromosomes)) + 5.0
 
 
-def get_parent_population(chromosomes):
+def find_parents(chromosomes):
     length = len(chromosomes)
     parents = []
     roulette_wheel = np.add.accumulate((adaptation_function(chromosomes) / sum(adaptation_function(chromosomes))) * 100)
@@ -38,29 +38,43 @@ def crossover(parents, pk):
     return population
 
 
-def mutation(population, pm):
-    length = len(population)
+def mutation(chromosomes, pm):
+    length = len(chromosomes)
     for i in range(length):
         if random.random() <= pm:
-            mutation_point = random.randint(0, len(population[i]) - 1)
-            if population[i][mutation_point] == 1:
-                population[i][mutation_point] = 0
+            mutation_point = random.randint(0, len(chromosomes[i]) - 1)
+            if chromosomes[i][mutation_point] == 1:
+                chromosomes[i][mutation_point] = 0
             else:
-                population[i][mutation_point] = 1
-    return population
+                chromosomes[i][mutation_point] = 1
+    return chromosomes
 
 
+# this will be moved to the main function
 def genetic_algorithm(pk, pm):
     results = []
     random.seed(0)
     population = [[random.randint(0, 1) for _ in range(8)] for _ in range(200)]  # 200 or 50
     for generation in range(200):
-        population = get_parent_population(population)
+        population = find_parents(population)
         population = crossover(population, pk)
         population = mutation(population, pm)
         results.append(np.average(adaptation_function(population)))
     return results
 
 
+def show_data():
+    # Plot 1
+    plt.figure(figsize=[12, 6])
+    plt.title(f'Population {50}, Crossover probability {1}')
+    plt.xlabel("Number of generations")
+    plt.ylabel("Average value of fitness function")
+    for p in [0, 0.01, 0.06]:
+        plt.plot(genetic_algorithm(1, p), lw=0.6)
+    plt.legend([f'Mutation probability={p}' for p in [0, 0.01, 0.06]])
+    plt.savefig(f'Population {50}, Crossover probability {1}.svg')
+    plt.close()
+
+
 if __name__ == '__main__':
-    print("lab5")
+    show_data()
