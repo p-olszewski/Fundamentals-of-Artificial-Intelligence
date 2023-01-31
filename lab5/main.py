@@ -87,16 +87,17 @@ def show_data(population, pk_array, pm_array):
         plt.show()
 
 
-def print_data():
-    for m_p in [0, 0.01, 0.06, 0.1, 0.2, 0.3, 0.5]:
-        for c_p in [0.5, 0.6, 0.7, 0.8, 1]:
-            avg_f_f_per_generation = genetic_algorithm(c_p, m_p)
-            result = round(np.average(avg_f_f_per_generation), 2)
-            print(
-                f'Population {200}, PM = {m_p}, pk = {c_p}, Result = {result}')
+def print_data(pm_array, pk_array):
+    for pm in pm_array:
+        for pk in pk_array:
+            result = genetic_algorithm(pk, pm)
+            avg_result = round(np.average(result), 2)
+            print("Population 200, pm =", pm, ", pk =", pk, ", Result =", avg_result)
 
 
 if __name__ == '__main__':
-    show_data(50, [0.5, 0.6, 0.7, 0.8, 1], [0, 0.01, 0.06])
-    show_data(200, [0.5, 0.6, 0.7, 0.8, 1], [0, 0.01, 0.2])
-    print_data()
+    pm_array = [0, 0.01, 0.06, 0.1, 0.2, 0.3, 0.5]
+    pk_array = [0.5, 0.6, 0.7, 0.8, 1]
+    show_data(50, pk_array, [0, 0.01, 0.06])
+    show_data(200, pk_array, [0, 0.01, 0.2])
+    print_data(pm_array, pk_array)
