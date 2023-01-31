@@ -63,11 +63,13 @@ def genetic_algorithm(pk, pm):
     return results
 
 
+# this loop for only pm array
 def show_data(population, pk, pm_array):
-    for p in pm_array:
-        plt.plot(genetic_algorithm(1, p), lw=0.6)
+    for pm in pm_array:
+        plt.plot(genetic_algorithm(1, pm))
     plt.title("Population = " + str(population) + ", PK = " + str(pk))
-    plt.legend([f'PM = {p}' for p in pm_array])
+    legend_labels = ["PM = " + str(pm) for pm in pm_array]
+    plt.legend(legend_labels)
     plt.xlabel("Number of generations")
     plt.ylabel("Value of the adaptation function")
     plt.show()
@@ -75,6 +77,4 @@ def show_data(population, pk, pm_array):
 
 if __name__ == '__main__':
     show_data(50, 1, [0, 0.01, 0.06])
-    show_data(50, 1, [0.5, 0.7, 1])
     show_data(200, 1, [0, 0.01, 0.2])
-    show_data(200, 1, [0.6, 0.8, 1])
