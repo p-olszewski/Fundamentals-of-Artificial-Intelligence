@@ -63,18 +63,18 @@ def genetic_algorithm(pk, pm):
     return results
 
 
-def show_data():
-    # Plot 1
-    plt.figure(figsize=[12, 6])
-    plt.title(f'Population {50}, Crossover probability {1}')
-    plt.xlabel("Number of generations")
-    plt.ylabel("Average value of fitness function")
-    for p in [0, 0.01, 0.06]:
+def show_data(population, pk, pm_array):
+    for p in pm_array:
         plt.plot(genetic_algorithm(1, p), lw=0.6)
-    plt.legend([f'Mutation probability={p}' for p in [0, 0.01, 0.06]])
-    plt.savefig(f'Population {50}, Crossover probability {1}.svg')
-    plt.close()
+    plt.title("Population = " + str(population) + ", PK = " + str(pk))
+    plt.legend([f'PM = {p}' for p in pm_array])
+    plt.xlabel("Number of generations")
+    plt.ylabel("Value of the adaptation function")
+    plt.show()
 
 
 if __name__ == '__main__':
-    show_data()
+    show_data(50, 1, [0, 0.01, 0.06])
+    show_data(50, 1, [0.5, 0.7, 1])
+    show_data(200, 1, [0, 0.01, 0.2])
+    show_data(200, 1, [0.6, 0.8, 1])
