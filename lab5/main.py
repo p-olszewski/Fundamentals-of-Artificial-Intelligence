@@ -80,7 +80,7 @@ def genetic_algorithm(pk, pm):
 def show_data(population, pk_array, pm_array):
     for pm in pm_array:
         for pk in pk_array:
-            plt.plot(genetic_algorithm(pk, pm))
+            plt.plot(genetic_algorithm(pk, pm), lw=0.5)
         plt.title("Population = " + str(population) + ", PM = " + str(pm))
         legend_labels = ["PK = " + str(pk) for pk in pk_array]
         plt.legend(legend_labels)
@@ -90,5 +90,5 @@ def show_data(population, pk_array, pm_array):
 
 
 if __name__ == '__main__':
-    show_data(50, [0.5, 0.7, 1], [0, 0.01, 0.06])
-    show_data(200, [0.5, 0.7, 1], [0, 0.01, 0.2])
+    show_data(50, [0.5, 0.6, 0.7, 0.8, 1], [0, 0.01, 0.06])
+    show_data(200, [0.5, 0.6, 0.7, 0.8, 1], [0, 0.01, 0.2])
