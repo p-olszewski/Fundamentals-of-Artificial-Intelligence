@@ -63,18 +63,32 @@ def genetic_algorithm(pk, pm):
     return results
 
 
-# this loop for only pm array
-def show_data(population, pk, pm_array):
+# pk in title, pm in labels
+# def show_data(population, pk_array, pm_array):
+#     for pk in pk_array:
+#         for pm in pm_array:
+#             plt.plot(genetic_algorithm(pk, pm))
+#         plt.title("Population = " + str(population) + ", PK = " + str(pk))
+#         legend_labels = ["PM = " + str(pm) for pm in pm_array]
+#         plt.legend(legend_labels)
+#         plt.xlabel("Number of generations")
+#         plt.ylabel("Value of the adaptation function")
+#         plt.show()
+
+
+# pm in title, pk in labels
+def show_data(population, pk_array, pm_array):
     for pm in pm_array:
-        plt.plot(genetic_algorithm(1, pm))
-    plt.title("Population = " + str(population) + ", PK = " + str(pk))
-    legend_labels = ["PM = " + str(pm) for pm in pm_array]
-    plt.legend(legend_labels)
-    plt.xlabel("Number of generations")
-    plt.ylabel("Value of the adaptation function")
-    plt.show()
+        for pk in pk_array:
+            plt.plot(genetic_algorithm(pk, pm))
+        plt.title("Population = " + str(population) + ", PM = " + str(pm))
+        legend_labels = ["PK = " + str(pk) for pk in pk_array]
+        plt.legend(legend_labels)
+        plt.xlabel("Number of generations")
+        plt.ylabel("Value of the adaptation function")
+        plt.show()
 
 
 if __name__ == '__main__':
-    show_data(50, 1, [0, 0.01, 0.06])
-    show_data(200, 1, [0, 0.01, 0.2])
+    show_data(50, [0.5, 0.7, 1], [0, 0.01, 0.06])
+    show_data(200, [0.5, 0.7, 1], [0, 0.01, 0.2])
