@@ -1,6 +1,7 @@
 import random
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 
 def adaptation_function(chromosomes):
@@ -88,11 +89,18 @@ def show_data(population, pk_array, pm_array):
 
 
 def print_data(pm_array, pk_array):
+    data = []
     for pm in pm_array:
         for pk in pk_array:
             result = genetic_algorithm(pk, pm)
-            avg_result = round(np.average(result), 2)
+            avg_result = round(np.average(result), 3)
             print("Population 200, pm =", pm, ", pk =", pk, ", Result =", avg_result)
+            data.append((pm, pk, avg_result))
+    # save to excel
+    df = pd.DataFrame(data, columns=["pm", "pk", "avg_result"])
+    pivot = df.pivot_table(index='pm', columns='pk', values='avg_result')
+    print(pivot)
+    pivot.to_excel("results.xlsx")
 
 
 if __name__ == '__main__':
