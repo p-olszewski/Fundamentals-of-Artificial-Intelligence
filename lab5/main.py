@@ -81,7 +81,6 @@ def show_data_in_console(chromosomes_amount, pm_array, pk_array):
         for pk in pk_array:
             result = genetic_algorithm(chromosomes_amount, pk, pm)
             avg_result = round(np.average(result), 3)
-            print("Chromosomes=", chromosomes_amount, ", pm =", pm, ", pk =", pk, ", Result =", avg_result)
             data.append((pm, pk, avg_result))
     # save to excel
     df = pd.DataFrame(data, columns=["pm", "pk", "avg_result"])
@@ -95,7 +94,8 @@ if __name__ == '__main__':
     pk_array = [0.5, 0.6, 0.7, 0.8, 1]
 
     # CHANGE THIS VARIABLE TO TEST ANOTHER CHROMOSOMES AMOUNT
-    chromosomes_amount = 200
+    chromosomes_amount = 50
 
+    print("Calculating for", chromosomes_amount, "chromosomes...\n")
     show_data_on_plot(chromosomes_amount, [0, 0.01, 0.1], pk_array)
     show_data_in_console(chromosomes_amount, pm_array, pk_array)
