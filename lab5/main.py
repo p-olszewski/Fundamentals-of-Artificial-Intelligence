@@ -50,10 +50,10 @@ def mutation(chromosomes, pm):
 
 
 # this will be moved to the main function
-def genetic_algorithm(pk, pm):
+def genetic_algorithm(chromosomes, pk, pm):
     results = []
     random.seed(0)
-    population = [[random.randint(0, 1) for _ in range(8)] for _ in range(200)]  # 200 or 50
+    population = [[random.randint(0, 1) for _ in range(8)] for _ in range(chromosomes)]
     for generation in range(200):
         population = find_parents(population)
         population = crossover(population, pk)
@@ -76,11 +76,11 @@ def genetic_algorithm(pk, pm):
 
 
 # pm in title, pk in labels
-def show_data(population, pk_array, pm_array):
+def show_data(chromosomes, pm_array, pk_array):
     for pm in pm_array:
         for pk in pk_array:
-            plt.plot(genetic_algorithm(pk, pm), lw=0.5)
-        plt.title("Population = " + str(population) + ", PM = " + str(pm))
+            plt.plot(genetic_algorithm(chromosomes, pk, pm), lw=0.5)
+        plt.title("Chromosomes = " + str(chromosomes) + ", PM = " + str(pm))
         legend_labels = ["PK = " + str(pk) for pk in pk_array]
         plt.legend(legend_labels)
         plt.xlabel("Number of generations")
@@ -88,13 +88,13 @@ def show_data(population, pk_array, pm_array):
         plt.show()
 
 
-def print_data(pm_array, pk_array):
+def print_data(chromosomes, pm_array, pk_array):
     data = []
     for pm in pm_array:
         for pk in pk_array:
-            result = genetic_algorithm(pk, pm)
+            result = genetic_algorithm(chromosomes, pk, pm)
             avg_result = round(np.average(result), 3)
-            print("Population 200, pm =", pm, ", pk =", pk, ", Result =", avg_result)
+            print("Chromosomes=", chromosomes, ", pm =", pm, ", pk =", pk, ", Result =", avg_result)
             data.append((pm, pk, avg_result))
     # save to excel
     df = pd.DataFrame(data, columns=["pm", "pk", "avg_result"])
@@ -106,6 +106,6 @@ def print_data(pm_array, pk_array):
 if __name__ == '__main__':
     pm_array = [0, 0.01, 0.06, 0.1, 0.2, 0.3, 0.5]
     pk_array = [0.5, 0.6, 0.7, 0.8, 1]
-    show_data(50, pk_array, [0, 0.01, 0.06])
-    show_data(200, pk_array, [0, 0.01, 0.2])
-    print_data(pm_array, pk_array)
+    chromosomes = 50
+    show_data(chromosomes, [0, 0.01, 0.1], pk_array)
+    print_data(chromosomes, pm_array, pk_array)
